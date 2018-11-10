@@ -27,14 +27,13 @@ dots[0] = True
 
 def divergenceDisplay(device, deviceId, number, dots):
 
-    device.letter(deviceId, 8, number[0], dots[0])
-    device.letter(deviceId, 7, number[2], dots[1])  # number[1] is a dot
-    device.letter(deviceId, 6, number[3], dots[2])
-    device.letter(deviceId, 5, number[4], dots[3])
-    device.letter(deviceId, 4, number[5], dots[4])
-    device.letter(deviceId, 3, number[6], dots[5])
-    device.letter(deviceId, 2, number[7], dots[6])
-    device.letter(deviceId, 1, number[8], dots[7])
+    device.letter(deviceId, 7, number[0], dots[0])
+    device.letter(deviceId, 6, number[2], dots[1])  # number[1] is a dot
+    device.letter(deviceId, 5, number[3], dots[2])
+    device.letter(deviceId, 4, number[4], dots[3])
+    device.letter(deviceId, 3, number[5], dots[4])
+    device.letter(deviceId, 2, number[6], dots[5])
+    device.letter(deviceId, 1, number[7], dots[6])
 
 
 switch1 = 17
