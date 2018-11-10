@@ -6,6 +6,19 @@ import RPi.GPIO as GPIO
 
 n = 7  # frequency to cross to the beta attractField
 
+device = led.sevensegment()
+dots = [False] * 8
+dots[0] = True
+
+switch1 = 17
+switch2 = 26
+
+GPIO.setmode(GPIO.BCM)  # Use BCM GPIO numbers
+GPIO.setup(switch1, GPIO.IN)
+GPIO.setup(switch2, GPIO.IN)
+
+device.brightness(3)
+
 
 def newWorldLine():
     attractField = random.choice([0] * (n - 1) + [1])
@@ -20,11 +33,6 @@ def newWorldLine():
     return(worldLine)
 
 
-device = led.sevensegment()
-dots = [False] * 8
-dots[0] = True
-
-
 def divergenceDisplay(device, deviceId, number, dots):
 
     device.letter(deviceId, 7, number[0], dots[0])
@@ -36,20 +44,25 @@ def divergenceDisplay(device, deviceId, number, dots):
     device.letter(deviceId, 1, number[7], dots[6])
 
 
-switch1 = 17
-switch2 = 26
-
-GPIO.setmode(GPIO.BCM)  # Use BCM GPIO numbers
-
-GPIO.setup(switch1, GPIO.IN)
-GPIO.setup(switch2, GPIO.IN)
-
-
 def matrixflow():
     return(str(random.uniform(0, 10)))
 
 
-device.brightness(3)
+def dayUpdate(hour, minute, second):
+    if datetime.now().hour == hour:
+        if datetime.now().minute == minute:
+            if datetime.now().second == second:
+                for i in range(24):
+                    dots = [False] * 8
+                    dots[i % 8] = True
+                    divergenceDisplay(device, 0, matrixflow(), dots)
+                    time.sleep(0.1)
+
+                    if i == 23:
+                        dots = [False] * 8
+                        dots[0] = True
+                        divergenceDisplay(device, 0, newWorldLine(), dots)
+
 
 running = True
 
@@ -66,16 +79,4 @@ while running:
                 dots[0] = True
                 divergenceDisplay(device, 0, newWorldLine(), dots)
 
-    if datetime.now().hour == 23:
-        if datetime.now().minute == 59:
-            if datetime.now().second == 59:
-                for i in range(24):
-                    dots = [False] * 8
-                    dots[i % 8] = True
-                    divergenceDisplay(device, 0, matrixflow(), dots)
-                    time.sleep(0.1)
-
-                    if i == 23:
-                        dots = [False] * 8
-                        dots[0] = True
-                        divergenceDisplay(device, 0, newWorldLine(), dots)
+    dayUpdate(23, 59, 59)
