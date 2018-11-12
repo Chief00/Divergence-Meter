@@ -47,6 +47,8 @@ def divergenceDisplay(device, deviceId, number, dots):
 def matrixflow():
     return(str(random.uniform(0, 10)))
 
+# Updating the world line every day depending on hour,minute,second
+
 
 def dayUpdate(hour, minute, second):
     if datetime.now().hour == hour:
