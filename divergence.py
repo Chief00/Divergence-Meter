@@ -55,14 +55,16 @@ def divergenceMatrixCreate():
 
 # Updating the world line every day depending on th ehour, minute, second
 
+
 def dayUpdate(hour, minute, second):
     if datetime.now().hour == hour:
         if datetime.now().minute == minute:
             if datetime.now().second == second:
-                divergenceMartix = divergenceMatrixCreate()
+                divergenceMatrix = divergenceMatrixCreate()
                 updateWorld()
 
 # Updates the display with the new world line - roll in fucntion
+
 
 def updateWorld():
     for i in range(24):
@@ -73,11 +75,13 @@ def updateWorld():
             divergenceDisplay(device, 0, divergenceMatrix[i], dots)
 
         if i > (24 - 8):
-            divergenceDisplay(device, 0, divergenceMatrix[23][0:j] + divergenceMatrix[i][j:8], dots)
+            divergenceDisplay(
+                device, 0, divergenceMatrix[23][0:j] + divergenceMatrix[i][j:8], dots)
             j += 1
             if j == 2:
                 j += 1
         time.sleep(0.15)
+
 
 running = True
 
@@ -87,4 +91,3 @@ while running:
     if not GPIO.input(switch2):
         divergenceMatrix = divergenceMatrixCreate()
         updateWorld()
-
